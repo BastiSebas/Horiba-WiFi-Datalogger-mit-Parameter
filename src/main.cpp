@@ -112,66 +112,62 @@ void ReadData(){
   display.display();
   delay(1000);
 
-  char NO_b[6];
-  char NO_p[4];
-  memcpy(NO_b, &buffer[10], 5 );
-  NO_b[5] = '\0';
-  memcpy(NO_p, &buffer[15], 3 );
-  NO_p[4] = '\0';
-
-
-  char NO2_b[6];
-  char NO2_p[4];
-  memcpy(NO2_b, &buffer[40], 5 );
-  NO2_b[5] = '\0';
-  memcpy(NO2_p, &buffer[45], 3 );
-  NO2_p[3] = '\0';
-
-  char NOx_b[6];
-  char NOx_p[4];
-  memcpy(NOx_b, &buffer[70], 5 );
-  NOx_b[5] = '\0';
-  memcpy(NOx_p, &buffer[75], 3 );
-  NOx_p[3] = '\0';
-
   char verify[5];
   memcpy(verify, &buffer[1], 4 );
-  NO_b[5] = '\0';
+  verify[5] = '\0';
   String verifystring;
   verifystring.concat(verify);
-
-  display.clearDisplay();
-  display.setCursor(0, 0);
-
-  display.print("NO_b: ");
-  display.println(NO_b);
-  display.print("NO_p: ");
-  display.println(NO_p);
-  display.print("NO2_b: ");
-  display.println(NO2_b);
-  display.print("NO2_p: ");
-  display.println(NO2_p);
-  display.print("NOx_b: ");
-  display.println(NOx_b);
-  display.print("NOx_p: ");
-  display.println(NOx_p);
-  display.display();
-  delay(1000);
-
-
-  double NO = atoi(NO_b) * pow(10, atoi(NO_p));
-  double NO2 = atoi(NO2_b) * pow(10, atoi(NO2_p));
-  double NOx = atoi(NOx_b) * pow(10, atoi(NOx_p));
-  Displayvalues(NO, NO2, NOx);
-
-  String DATA=buildstring(NO, NO2, NOx);
-  display.clearDisplay();
-  display.setCursor(0, 0);
-  display.display();
-  delay(1000);
-
   if (verifystring.startsWith("MD03")){
+    char NO_b[6];
+    char NO_p[4];
+    memcpy(NO_b, &buffer[10], 5 );
+    NO_b[5] = '\0';
+    memcpy(NO_p, &buffer[15], 3 );
+    NO_p[4] = '\0';
+
+    char NO2_b[6];
+    char NO2_p[4];
+    memcpy(NO2_b, &buffer[40], 5 );
+    NO2_b[5] = '\0';
+    memcpy(NO2_p, &buffer[45], 3 );
+    NO2_p[3] = '\0';
+
+    char NOx_b[6];
+    char NOx_p[4];
+    memcpy(NOx_b, &buffer[70], 5 );
+    NOx_b[5] = '\0';
+    memcpy(NOx_p, &buffer[75], 3 );
+    NOx_p[3] = '\0';
+
+    display.clearDisplay();
+    display.setCursor(0, 0);
+
+    display.print("NO_b: ");
+    display.println(NO_b);
+    display.print("NO_p: ");
+    display.println(NO_p);
+    display.print("NO2_b: ");
+    display.println(NO2_b);
+    display.print("NO2_p: ");
+    display.println(NO2_p);
+    display.print("NOx_b: ");
+    display.println(NOx_b);
+    display.print("NOx_p: ");
+    display.println(NOx_p);
+    display.display();
+    delay(1000);
+
+    double NO = atoi(NO_b) * pow(10, atoi(NO_p));
+    double NO2 = atoi(NO2_b) * pow(10, atoi(NO2_p));
+    double NOx = atoi(NOx_b) * pow(10, atoi(NOx_p));
+    Displayvalues(NO, NO2, NOx);
+
+    String DATA=buildstring(NO, NO2, NOx);
     Upload(DATA);
+    display.clearDisplay();
+    display.setCursor(0, 0);
+    display.display();
+    delay(1000);
   }
   else {
     while(Serial.available()){
